@@ -1,6 +1,6 @@
 # Current Antidote Module Dependency Graph:
 
-LINK
+![](snapshots/current.png)
 
 # Graph Generation:
 
