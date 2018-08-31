@@ -1,0 +1,119 @@
+digraph g {
+ 
+        splines=true
+        overlap=scale
+         
+        node [shape=circle,
+              fixedsize=true,
+              width=0.70,
+              color="black", # node border color (X11 or HTML colors)
+              style="filled,solid",
+              fontsize=10]
+
+
+        node [shape=Msquare,
+              fillcolor=limegreen]
+        supervisor;
+        ad_app [label="antidote\nsup"]
+        clock_coord [label="clocksi\ncoord\nsup"]
+        clock_coord_worker [label="clocksi\ncoord\nworker\nsup"]
+        clock_readitem [label="clocksi\nreamitem\nsup"]
+        metadata_manager_sup [label="meta data\nmanager\nsup"]
+        metadata_sender_sup [label="meta data\nsender\nsup"]
+
+        inter_dc_sup [label="inter_dc\nsup"]
+        inter_dc_query_response_sup [label="inter_dc\nquery\nresponse\nsup"]
+
+        node [shape=Mcircle,
+              fillcolor=lightblue]
+        gen_statem;
+        clocksi_worker [label="clocksi\ncoord"]
+        metadata_sender [label="meta data\nsender"]
+
+        node [shape=circle,
+              fillcolor=lightblue]
+        gen_server;
+        metadata_manager [label="meta data\nmanager"]
+        stats_collector [label="stats\ncollector"]
+        readitem [label="clocksi\nreaditem"]
+        bcounter_mgr [label="bcounter\nmgr"]
+        zmq_context [label="zmq\ncontext"]
+        inter_dc_pub [label="inter_dc\npub"]
+        inter_dc_sub [label="inter_dc\nsub"]
+        stable_meta_data_server [label="stable\nmeta data\nserver"]
+        inter_dc_query [label="inter_dc\nquery"]
+        inter_dc_query_rcv [label="inter_dc\nquery\nreceive"]
+        inter_dc_query_response [label="inter_dc\nquery\nresponse"]
+
+        node [shape=circle,
+              fillcolor=orange]
+        riak_vnode;
+        logging_vnode [label="logging\nvnode"]
+        clocksi_vnode [label="clocksi\nvnode"]
+        materializer_vnode [label="materializer\nvnode"]
+        inter_dc_sub_vnode [label="inter_dc\nsub vnode"]
+        inter_dc_dep_vnode [label="inter_dc\ndep vnode"]
+        inter_dc_log_sender_vnode [label="inter_dc\nlog sender"]
+
+        node [shape=circle,
+              fillcolor=white]
+        other;
+        elli;
+
+         
+        edge [ penwidth=0.75, color=black ]
+         
+        ad_app -> stats_collector ;
+        ad_app -> logging_vnode ;
+        ad_app -> clocksi_vnode ;
+        ad_app -> clock_coord ;
+        ad_app -> clock_readitem ;
+        ad_app -> materializer_vnode ;
+        ad_app -> bcounter_mgr ;
+        ad_app -> stable_meta_data_server ;
+
+
+
+        ad_app -> inter_dc_sup ;
+
+        inter_dc_sup -> inter_dc_pub ;
+        inter_dc_sup -> inter_dc_sub ;
+        inter_dc_sup -> inter_dc_sub_vnode ;
+        inter_dc_sup -> inter_dc_dep_vnode ;
+        inter_dc_sup -> inter_dc_query ;
+        inter_dc_sup -> inter_dc_query_rcv ;
+        inter_dc_sup -> inter_dc_log_sender_vnode ;
+        inter_dc_sup -> inter_dc_query_response_sup ;
+        inter_dc_sup -> zmq_context ;
+
+
+        ad_app -> metadata_manager_sup ;
+        ad_app -> metadata_sender_sup ;
+
+        clock_coord -> clock_coord_worker ;
+
+        clock_coord_worker -> clocksi_worker ;
+
+        clock_readitem -> readitem ;
+
+        metadata_manager_sup -> metadata_manager ;
+
+        metadata_sender_sup -> metadata_sender ;
+
+        inter_dc_query_response_sup -> inter_dc_query_response;
+
+        ad_app -> elli ;
+
+
+    subgraph cluster_legend {
+
+        label="Node Types";
+
+        supervisor;
+        gen_statem;
+        gen_server;
+        riak_vnode;
+        other;
+
+    }
+}

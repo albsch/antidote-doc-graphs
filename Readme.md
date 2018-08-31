@@ -1,13 +1,15 @@
-# Current Antidote Module Dependency Graph:
+# Antidote Documentation - Graphs
 
-![](snapshots/current.png)
 
-# Graph Generation:
+## Antidote Supervisor Tree
 
-* Generate current file list:
-  * Place sh script into same directory as the antidote folder
-  * Run script and pipe output into files.txt
+![](suptree-doc/current.png)
 
-* Generate dependency graph:
-  * Place jar, .scrape file, and files.txt into same directory as the antidote folder
-  * Run `java -jar app.jar`, this produces the desired dot file in the same directory
+## Antidote Module Dependency Graph
+
+![](module-doc/current.png)
+
+## Antidote Statem Graphs
+
+![](statem-doc/current.png)
+
