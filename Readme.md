@@ -11,5 +11,7 @@
 
 ## Antidote Statem Graphs
 
-![](statem-doc/current.png)
+### Clocksi Transaction Coordinator
+
+![](statem-doc/clocksi_interactive_coord.png)
 
